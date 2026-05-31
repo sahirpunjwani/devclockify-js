@@ -458,7 +458,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
 // For browser <script> tag — attaches to window.Clockify
 if (typeof window !== 'undefined') {
-  window.Clockify = {
+  window.devclockify = {
     pad2, fmtSW, fmtTM,
     makeBeep, startRinging, stopRinging,
     createStopwatch,
