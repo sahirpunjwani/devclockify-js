@@ -478,6 +478,93 @@
     footer a { color: var(--hint); text-decoration: none; }
     footer a:hover { color: var(--accent); }
 
+    /* ---- TWO COMPARTMENTS ---- */
+    .compartments {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+      width: 100%;
+      max-width: 680px;
+      animation: fadeUp 0.6s ease 0.5s both;
+    }
+
+    .compartment {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .compartment-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .compartment-header .comp-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .compartment-header .comp-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    .comp-cdn {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .comp-cdn .cdn-label {
+      color: var(--hint);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+    }
+
+    .comp-cdn .cdn-url {
+      color: var(--text);
+      font-size: 11px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    .comp-cdn .copy-btn { margin-left: 0; }
+
+    .comp-example {
+      padding: 14px;
+      overflow-x: auto;
+    }
+
+    .comp-example pre {
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 600px) {
+      .compartments { grid-template-columns: 1fr; }
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -545,13 +632,72 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
       </button>
     </div>
-    <div class="install-strip">
-      <span class="label">cdn</span>
-      <span class="url">https://cdn.jsdelivr.net/gh/sahirpunjwani/devclockify-js@main/index.js</span>
-      <button class="copy-btn" id="copy-cdn" title="copy">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-      </button>
+  </div>
+
+  <!-- TWO COMPARTMENTS -->
+  <div class="compartments">
+
+    <!-- LEFT: CSS -->
+    <div class="compartment">
+      <div class="compartment-header">
+        <div class="comp-dot"></div>
+        <span class="comp-label">clockify.css</span>
+      </div>
+      <div class="comp-cdn">
+        <span class="cdn-label">cdn</span>
+        <span class="cdn-url">cdn.jsdelivr.net/.../clockify.css</span>
+        <button class="copy-btn" id="copy-css-cdn" title="copy cdn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
+      <div class="comp-example">
+        <pre><span class="cm">&lt;!-- in your HTML head --&gt;</span>
+<span class="kw">&lt;link</span> <span class="fn">rel</span>=<span class="str">"stylesheet"</span>
+  <span class="fn">href</span>=<span class="str">"cdn.jsdelivr.net/
+  .../clockify.css"</span><span class="kw">&gt;</span>
+
+<span class="cm">&lt;!-- then use ck- classes --&gt;</span>
+<span class="kw">&lt;div</span> <span class="fn">class</span>=<span class="str">"ck-app"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;div</span> <span class="fn">class</span>=<span class="str">"ck-time"</span><span class="kw">&gt;</span>
+    00:00.00
+  <span class="kw">&lt;/div&gt;</span>
+  <span class="kw">&lt;button</span> <span class="fn">class</span>=<span class="str">"ck-btn main"</span><span class="kw">&gt;</span>
+    start
+  <span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span></pre>
+      </div>
     </div>
+
+    <!-- RIGHT: JS -->
+    <div class="compartment">
+      <div class="compartment-header">
+        <div class="comp-dot"></div>
+        <span class="comp-label">index.js</span>
+      </div>
+      <div class="comp-cdn">
+        <span class="cdn-label">cdn</span>
+        <span class="cdn-url">cdn.jsdelivr.net/.../index.js</span>
+        <button class="copy-btn" id="copy-js-cdn" title="copy cdn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
+      <div class="comp-example">
+        <pre><span class="cm">// via CDN script tag</span>
+<span class="kw">&lt;script</span> <span class="fn">src</span>=<span class="str">"cdn.jsdelivr.net/
+  .../index.js"</span><span class="kw">&gt;&lt;/script&gt;</span>
+
+<span class="cm">// then use window.Clockify</span>
+<span class="kw">const</span> sw =
+  <span class="acc">Clockify</span>.<span class="fn">createStopwatch</span>();
+
+sw.<span class="fn">onTick</span>((ms, fmt) => {
+  el.textContent = fmt;
+});
+
+sw.<span class="fn">start</span>();</pre>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -786,6 +932,12 @@ manager.<span class="fn">isRinging</span>();</pre>
 
   document.getElementById('copy-cdn').addEventListener('click', () =>
     copyText('https://cdn.jsdelivr.net/gh/sahirpunjwani/devclockify-js@main/index.js', 'copy-cdn'));
+
+  document.getElementById('copy-css-cdn').addEventListener('click', () =>
+    copyText('https://cdn.jsdelivr.net/gh/sahirpunjwani/devclockify-js@main/clockify.css', 'copy-css-cdn'));
+
+  document.getElementById('copy-js-cdn').addEventListener('click', () =>
+    copyText('https://cdn.jsdelivr.net/gh/sahirpunjwani/devclockify-js@main/index.js', 'copy-js-cdn'));
 </script>
 
 </body>
