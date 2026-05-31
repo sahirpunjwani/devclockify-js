@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A full clock utility library — stopwatch, timer, alarm, audio & formatters.",
   "main": "index.js",
+  "style": "clockify.css",
   "type": "module",
   "keywords": ["clock", "stopwatch", "timer", "alarm", "countdown", "javascript"],
   "author": "Sahir Punjwani",
