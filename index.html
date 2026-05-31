@@ -33,7 +33,6 @@
       overflow-x: hidden;
     }
 
-    /* ---- NOISE TEXTURE ---- */
     body::before {
       content: '';
       position: fixed;
@@ -44,7 +43,6 @@
       opacity: 0.4;
     }
 
-    /* ---- NAV ---- */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -98,7 +96,6 @@
 
     .nav-gh:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* ---- HERO ---- */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -111,7 +108,6 @@
       overflow: hidden;
     }
 
-    /* Radial glow behind hero */
     .hero::after {
       content: '';
       position: absolute;
@@ -205,9 +201,15 @@
 
     .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-    /* Install strip */
-    .install-strip {
+    .install-strips {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       margin-top: 3rem;
+      animation: fadeUp 0.6s ease 0.4s both;
+    }
+
+    .install-strip {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -216,12 +218,21 @@
       border-radius: 10px;
       padding: 12px 20px;
       font-family: 'DM Mono', monospace;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--muted);
-      animation: fadeUp 0.6s ease 0.4s both;
+    }
+
+    .install-strip .label {
+      color: var(--hint);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-right: 4px;
     }
 
     .install-strip span { color: var(--accent); }
+
+    .install-strip .url { color: var(--text); word-break: break-all; text-align: left; }
 
     .copy-btn {
       background: none;
@@ -231,15 +242,16 @@
       display: flex;
       align-items: center;
       padding: 2px;
+      margin-left: auto;
+      flex-shrink: 0;
       transition: color 0.2s;
     }
+
     .copy-btn:hover { color: var(--accent); }
 
-    /* ---- STATS ---- */
     .stats {
       display: flex;
       justify-content: center;
-      gap: 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       background: var(--surface);
@@ -271,7 +283,6 @@
       text-transform: uppercase;
     }
 
-    /* ---- SECTIONS ---- */
     section {
       position: relative;
       z-index: 1;
@@ -304,7 +315,6 @@
       margin-bottom: 48px;
     }
 
-    /* ---- FEATURES GRID ---- */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -350,10 +360,8 @@
       line-height: 1.6;
     }
 
-    /* ---- CODE BLOCKS ---- */
     .code-tabs {
       display: flex;
-      gap: 0;
       border: 1px solid var(--border);
       border-bottom: none;
       border-radius: 10px 10px 0 0;
@@ -399,7 +407,6 @@
     .cm { color: var(--hint); font-style: italic; }
     .acc { color: var(--accent); }
 
-    /* ---- API TABLE ---- */
     .api-group { margin-bottom: 48px; }
 
     .api-group-title {
@@ -458,7 +465,6 @@
     .api-table td:nth-child(2) { color: var(--muted); font-size: 12px; }
     .api-table td:nth-child(3) { color: var(--hint); font-size: 12px; }
 
-    /* ---- FOOTER ---- */
     footer {
       border-top: 1px solid var(--border);
       padding: 32px 40px;
@@ -472,13 +478,11 @@
     footer a { color: var(--hint); text-decoration: none; }
     footer a:hover { color: var(--accent); }
 
-    /* ---- ANIMATIONS ---- */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ---- SCROLLBAR ---- */
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
@@ -494,7 +498,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">
     <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
@@ -503,26 +506,25 @@
       <line x1="14" y1="14" x2="19" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
       <circle cx="14" cy="14" r="1.5" fill="currentColor"/>
     </svg>
-    clockify-js
+    devclockify-js
   </a>
   <ul class="nav-links">
     <li><a href="#features">features</a></li>
     <li><a href="#usage">usage</a></li>
     <li><a href="#api">api</a></li>
   </ul>
-  <a class="nav-gh" href="https://github.com/sahirpunjwani/clockify-js" target="_blank">
+  <a class="nav-gh" href="https://github.com/sahirpunjwani/devclockify-js" target="_blank">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
     GitHub
   </a>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">
     <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
     v1.0.0 — open source
   </div>
-  <h1 class="hero-title">clockify<span>.</span>js</h1>
+  <h1 class="hero-title">devclockify<span>.</span>js</h1>
   <p class="hero-sub">A full clock utility library. Stopwatch, timer, alarm, audio & formatters — all in one file.</p>
   <div class="hero-actions">
     <a class="btn-primary" href="#usage">
@@ -534,15 +536,25 @@
       view on github
     </a>
   </div>
-  <div class="install-strip">
-    <span>$</span> npm install devclockify-js
-    <button class="copy-btn" onclick="navigator.clipboard.writeText('npm install clockify-js');this.innerHTML='<svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;/></svg>'" title="copy">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-    </button>
+
+  <div class="install-strips">
+    <div class="install-strip">
+      <span class="label">npm</span>
+      <span>$</span> npm install devclockify-js
+      <button class="copy-btn" id="copy-npm" title="copy">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+    </div>
+    <div class="install-strip">
+      <span class="label">cdn</span>
+      <span class="url">https://cdn.jsdelivr.net/gh/sahirpunjwani/devclockify-js@main/index.js</span>
+      <button class="copy-btn" id="copy-cdn" title="copy">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- STATS -->
 <div class="stats">
   <div class="stat"><div class="stat-num">3</div><div class="stat-label">modules</div></div>
   <div class="stat"><div class="stat-num">~8kb</div><div class="stat-label">file size</div></div>
@@ -550,12 +562,10 @@
   <div class="stat"><div class="stat-num">MIT</div><div class="stat-label">license</div></div>
 </div>
 
-<!-- FEATURES -->
 <section id="features">
   <div class="section-label">what's inside</div>
   <h2 class="section-title">everything you need</h2>
   <p class="section-sub">No dependencies. No bloat. Just a single JS file with clean, well-documented functions.</p>
-
   <div class="features">
     <div class="feature">
       <div class="feature-icon">
@@ -602,46 +612,40 @@
   </div>
 </section>
 
-<!-- USAGE -->
 <section id="usage">
   <div class="section-label">code examples</div>
   <h2 class="section-title">quick start</h2>
   <p class="section-sub">Drop it in and go. Works with npm, ES modules, or a plain script tag.</p>
-
   <div class="code-tabs">
     <button class="code-tab active" onclick="showTab('stopwatch', this)">stopwatch</button>
     <button class="code-tab" onclick="showTab('timer', this)">timer</button>
     <button class="code-tab" onclick="showTab('alarm', this)">alarm</button>
     <button class="code-tab" onclick="showTab('audio', this)">audio</button>
   </div>
-
   <div class="code-block active" id="tab-stopwatch">
-    <pre><span class="kw">import</span> { <span class="acc">createStopwatch</span> } <span class="kw">from</span> <span class="str">'clockify-js'</span>;
+    <pre><span class="kw">import</span> { <span class="acc">createStopwatch</span> } <span class="kw">from</span> <span class="str">'devclockify-js'</span>;
 
 <span class="kw">const</span> sw = <span class="fn">createStopwatch</span>();
 
-<span class="cm">// fires every ~50ms with current time</span>
 sw.<span class="fn">onTick</span>((ms, formatted) => {
   console.<span class="fn">log</span>(formatted); <span class="cm">// "01:23.45"</span>
 });
 
-<span class="cm">// fires when a lap is recorded</span>
 sw.<span class="fn">onLap</span>((lap, allLaps) => {
   console.<span class="fn">log</span>(<span class="str">'Lap:'</span>, lap.formatted);
 });
 
-sw.<span class="fn">start</span>();   <span class="cm">// start or resume</span>
-sw.<span class="fn">lap</span>();     <span class="cm">// record a lap</span>
-sw.<span class="fn">pause</span>();   <span class="cm">// pause</span>
-sw.<span class="fn">reset</span>();   <span class="cm">// reset to zero</span>
+sw.<span class="fn">start</span>();
+sw.<span class="fn">lap</span>();
+sw.<span class="fn">pause</span>();
+sw.<span class="fn">reset</span>();
 
-sw.<span class="fn">getTime</span>();   <span class="cm">// "01:23.45"</span>
-sw.<span class="fn">getLaps</span>();   <span class="cm">// [{n:1, t:5430, formatted:"00:05.43"}]</span>
+sw.<span class="fn">getTime</span>();    <span class="cm">// "01:23.45"</span>
+sw.<span class="fn">getLaps</span>();    <span class="cm">// [{n:1, t:5430, formatted:"00:05.43"}]</span>
 sw.<span class="fn">isRunning</span>(); <span class="cm">// true / false</span></pre>
   </div>
-
   <div class="code-block" id="tab-timer">
-    <pre><span class="kw">import</span> { <span class="acc">createTimer</span> } <span class="kw">from</span> <span class="str">'clockify-js'</span>;
+    <pre><span class="kw">import</span> { <span class="acc">createTimer</span> } <span class="kw">from</span> <span class="str">'devclockify-js'</span>;
 
 <span class="kw">const</span> timer = <span class="fn">createTimer</span>();
 
@@ -662,13 +666,11 @@ timer.<span class="fn">reset</span>();
 timer.<span class="fn">getTime</span>();        <span class="cm">// "04:58"</span>
 timer.<span class="fn">getSecondsLeft</span>(); <span class="cm">// 298</span></pre>
   </div>
-
   <div class="code-block" id="tab-alarm">
-    <pre><span class="kw">import</span> { <span class="acc">createAlarmManager</span> } <span class="kw">from</span> <span class="str">'clockify-js'</span>;
+    <pre><span class="kw">import</span> { <span class="acc">createAlarmManager</span> } <span class="kw">from</span> <span class="str">'devclockify-js'</span>;
 
 <span class="kw">const</span> manager = <span class="fn">createAlarmManager</span>();
 
-<span class="cm">// add alarms (days: 0=Sun ... 6=Sat)</span>
 manager.<span class="fn">add</span>(<span class="str">'07:00'</span>, <span class="str">'wake up'</span>, [1,2,3,4,5]); <span class="cm">// Mon–Fri</span>
 manager.<span class="fn">add</span>(<span class="str">'09:00'</span>, <span class="str">'weekend'</span>, [0,6]);        <span class="cm">// Sat & Sun</span>
 manager.<span class="fn">add</span>(<span class="str">'12:00'</span>, <span class="str">'lunch'</span>);               <span class="cm">// every day</span>
@@ -678,34 +680,29 @@ manager.<span class="fn">onRing</span>((alarm) => {
   <span class="fn">setTimeout</span>(() => manager.<span class="fn">stopRing</span>(), 10000);
 });
 
-manager.<span class="fn">start</span>(); <span class="cm">// must call this to activate checking</span>
+manager.<span class="fn">start</span>();
 
-manager.<span class="fn">getAll</span>();          <span class="cm">// all alarms</span>
-manager.<span class="fn">toggle</span>(alarmId);   <span class="cm">// on / off</span>
-manager.<span class="fn">delete</span>(alarmId);   <span class="cm">// remove</span>
-manager.<span class="fn">isRinging</span>();       <span class="cm">// true / false</span></pre>
+manager.<span class="fn">getAll</span>();
+manager.<span class="fn">toggle</span>(alarmId);
+manager.<span class="fn">delete</span>(alarmId);
+manager.<span class="fn">isRinging</span>();</pre>
   </div>
-
   <div class="code-block" id="tab-audio">
-    <pre><span class="kw">import</span> { <span class="acc">makeBeep</span>, <span class="acc">startRinging</span>, <span class="acc">stopRinging</span> } <span class="kw">from</span> <span class="str">'clockify-js'</span>;
+    <pre><span class="kw">import</span> { <span class="acc">makeBeep</span>, <span class="acc">startRinging</span>, <span class="acc">stopRinging</span> } <span class="kw">from</span> <span class="str">'devclockify-js'</span>;
 
-<span class="cm">// single beep</span>
 <span class="fn">makeBeep</span>();           <span class="cm">// default 880Hz, 0.35s</span>
 <span class="fn">makeBeep</span>(440, 0.5);   <span class="cm">// lower pitch, longer</span>
 <span class="fn">makeBeep</span>(1200, 0.1);  <span class="cm">// high ping</span>
 
-<span class="cm">// continuous ringing</span>
 <span class="kw">const</span> ring = <span class="fn">startRinging</span>();
 <span class="fn">setTimeout</span>(() => <span class="fn">stopRinging</span>(ring), 5000);</pre>
   </div>
 </section>
 
-<!-- API -->
 <section id="api">
   <div class="section-label">reference</div>
   <h2 class="section-title">full api</h2>
   <p class="section-sub">Every function, parameter and return value.</p>
-
   <div class="api-group">
     <div class="api-group-title">stopwatch</div>
     <table class="api-table">
@@ -722,7 +719,6 @@ manager.<span class="fn">isRinging</span>();       <span class="cm">// true / fa
       <tr><td>.onLap(cb)</td><td>Callback on lap recorded</td><td>void</td></tr>
     </table>
   </div>
-
   <div class="api-group">
     <div class="api-group-title">timer</div>
     <table class="api-table">
@@ -738,7 +734,6 @@ manager.<span class="fn">isRinging</span>();       <span class="cm">// true / fa
       <tr><td>.onDone(cb)</td><td>Callback when done</td><td>void</td></tr>
     </table>
   </div>
-
   <div class="api-group">
     <div class="api-group-title">alarm manager</div>
     <table class="api-table">
@@ -760,11 +755,10 @@ manager.<span class="fn">isRinging</span>();       <span class="cm">// true / fa
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div>built by <a href="https://github.com/sahirpunjwani" target="_blank">sahirpunjwani</a> — MIT license</div>
   <div>
-    <a href="https://github.com/sahirpunjwani/clockify-js" target="_blank">github</a> ·
+    <a href="https://github.com/sahirpunjwani/devclockify-js" target="_blank">github</a> ·
     <a href="https://sahirpunjwani.github.io/devclockify" target="_blank">live demo</a>
   </div>
 </footer>
@@ -776,6 +770,22 @@ manager.<span class="fn">isRinging</span>();       <span class="cm">// true / fa
     document.getElementById('tab-' + name).classList.add('active');
     btn.classList.add('active');
   }
+
+  function copyText(text, btnId) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById(btnId);
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      setTimeout(() => {
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+      }, 2000);
+    });
+  }
+
+  document.getElementById('copy-npm').addEventListener('click', () =>
+    copyText('npm install devclockify-js', 'copy-npm'));
+
+  document.getElementById('copy-cdn').addEventListener('click', () =>
+    copyText('https://cdn.jsdelivr.net/gh/sahirpunjwani/devclockify-js@main/index.js', 'copy-cdn'));
 </script>
 
 </body>
