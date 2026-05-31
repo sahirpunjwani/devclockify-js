@@ -7,14 +7,14 @@ A full clock utility library for JavaScript — stopwatch, timer, alarm, audio &
 ## Install
 
 ```bash
-npm install clockify-js
+npm install devclockify-js
 ```
 
 Or use directly in the browser:
 
 ```html
 <script src="index.js"></script>
-<!-- Then use window.Clockify.createStopwatch() etc. -->
+<!-- Then use window.devclockify.createStopwatch() etc. -->
 ```
 
 ---
@@ -22,7 +22,7 @@ Or use directly in the browser:
 ## Stopwatch
 
 ```javascript
-import { createStopwatch } from 'clockify-js';
+import { createStopwatch } from 'devclockify-js';
 
 const sw = createStopwatch();
 
@@ -49,7 +49,7 @@ sw.isRunning(); // true / false
 ## Timer
 
 ```javascript
-import { createTimer } from 'clockify-js';
+import { createTimer } from 'devclockify-js';
 
 const timer = createTimer();
 
@@ -77,7 +77,7 @@ timer.isRunning();      // true / false
 ## Alarm
 
 ```javascript
-import { createAlarmManager } from 'clockify-js';
+import { createAlarmManager } from 'devclockify-js';
 
 const manager = createAlarmManager();
 
@@ -114,7 +114,7 @@ manager.getDayNames([1,2,3]); // ["Mon","Tue","Wed"]
 ## Audio
 
 ```javascript
-import { makeBeep, startRinging, stopRinging } from 'clockify-js';
+import { makeBeep, startRinging, stopRinging } from 'devclockify-js';
 
 makeBeep();           // default beep (880Hz, 0.35s)
 makeBeep(440, 0.5);   // lower pitch, longer
@@ -128,7 +128,7 @@ stopRinging(ring);                 // stop it
 ## Formatters
 
 ```javascript
-import { pad2, fmtSW, fmtTM } from 'clockify-js';
+import { pad2, fmtSW, fmtTM } from 'devclockify-js';
 
 pad2(5);       // "05"
 pad2(12);      // "12"
