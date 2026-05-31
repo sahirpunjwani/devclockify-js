@@ -1,0 +1,593 @@
+/**
+ * clockify.css — Clockify Design System
+ * A dark UI component library for clock & timer apps.
+ * GitHub: github.com/sahirpunjwani/devclockify-js
+ *
+ * USAGE:
+ * <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sahirpunjwani/devclockify-js@main/clockify.css">
+ *
+ * CONTENTS:
+ * 1. CSS Variables (Design Tokens)
+ * 2. Reset & Base
+ * 3. Layout
+ * 4. Typography
+ * 5. Tabs
+ * 6. Time Display
+ * 7. Controls & Buttons
+ * 8. Laps
+ * 9. Timer Inputs
+ * 10. Ring Banner
+ * 11. Alarm
+ * 12. Days Picker
+ * 13. Utilities
+ * 14. Animations
+ */
+
+
+/* ============================================================
+   1. CSS VARIABLES (DESIGN TOKENS)
+   Override these to customise the entire theme:
+   :root { --accent: #ff6060; }
+   ============================================================ */
+:root {
+  /* Backgrounds */
+  --ck-bg:        #0e0e0f;
+  --ck-surface:   #1a1a1c;
+  --ck-surface2:  #242426;
+
+  /* Borders */
+  --ck-border:    #2e2e32;
+
+  /* Text */
+  --ck-text:      #f0f0f0;
+  --ck-muted:     #888;
+  --ck-hint:      #555;
+
+  /* Accent */
+  --ck-accent:    #c8f060;
+  --ck-accent-dim:#a8d040;
+
+  /* Danger */
+  --ck-danger:    #ff5f5f;
+
+  /* Radius */
+  --ck-radius:    14px;
+  --ck-radius-sm: 8px;
+
+  /* Fonts */
+  --ck-font:      'DM Sans', sans-serif;
+  --ck-font-mono: 'DM Mono', monospace;
+}
+
+
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.ck-body {
+  background: var(--ck-bg);
+  color: var(--ck-text);
+  font-family: var(--ck-font);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+
+/* ============================================================
+   3. LAYOUT
+   ============================================================ */
+
+/* Main app wrapper — centers and constrains width */
+.ck-app {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Header / logo area */
+.ck-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* Logo text */
+.ck-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--ck-font-mono);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ck-accent);
+  letter-spacing: -0.02em;
+}
+
+/* Section visibility */
+.ck-section { display: none; }
+.ck-section.active { display: block; }
+
+
+/* ============================================================
+   4. TABS
+   ============================================================ */
+
+/* Tab bar wrapper */
+.ck-tabs {
+  display: flex;
+  background: var(--ck-surface);
+  border-radius: var(--ck-radius);
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--ck-border);
+}
+
+/* Individual tab button */
+.ck-tab {
+  flex: 1;
+  padding: 9px 8px;
+  border: none;
+  background: transparent;
+  color: var(--ck-muted);
+  font-family: var(--ck-font);
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.ck-tab:hover { color: var(--ck-text); }
+
+.ck-tab.active {
+  background: var(--ck-surface2);
+  color: var(--ck-accent);
+  border: 1px solid var(--ck-border);
+}
+
+
+/* ============================================================
+   5. TIME DISPLAY
+   ============================================================ */
+
+/* Display area — centered, padded */
+.ck-display {
+  text-align: center;
+  padding: 2.5rem 0 2rem;
+}
+
+/* Main time number */
+.ck-time {
+  font-family: var(--ck-font-mono);
+  font-size: 64px;
+  font-weight: 300;
+  color: var(--ck-text);
+  letter-spacing: -3px;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+/* Red when timer is about to finish */
+.ck-time.danger { color: var(--ck-danger); }
+
+/* Milliseconds part — smaller and muted */
+.ck-time .ms {
+  font-size: 36px;
+  color: var(--ck-muted);
+  letter-spacing: -1px;
+}
+
+/* Status label below time e.g. "running", "paused" */
+.ck-status {
+  font-size: 12px;
+  color: var(--ck-hint);
+  margin-top: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--ck-font-mono);
+}
+
+
+/* ============================================================
+   6. CONTROLS & BUTTONS
+   ============================================================ */
+
+/* Button row */
+.ck-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 2rem;
+}
+
+/* Round control button (lap, reset) */
+.ck-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--ck-border);
+  background: var(--ck-surface);
+  color: var(--ck-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.ck-btn:hover { border-color: var(--ck-hint); color: var(--ck-text); }
+.ck-btn:active { transform: scale(0.93); }
+
+/* Main action button (start/pause) — larger, accent colored */
+.ck-btn.main {
+  width: 68px;
+  height: 68px;
+  background: var(--ck-accent);
+  border-color: var(--ck-accent);
+  color: #0e0e0f;
+}
+
+.ck-btn.main:hover {
+  background: var(--ck-accent-dim);
+  border-color: var(--ck-accent-dim);
+}
+
+/* Small add button (used in alarm) */
+.ck-add-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--ck-border);
+  background: var(--ck-accent);
+  color: #0e0e0f;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.ck-add-btn:hover { background: var(--ck-accent-dim); }
+.ck-add-btn:active { transform: scale(0.93); }
+
+/* Stop button (inside ring banner) */
+.ck-stop-btn {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 95, 95, 0.4);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ck-danger);
+  font-size: 12px;
+  font-family: var(--ck-font);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ck-stop-btn:hover { background: rgba(255, 95, 95, 0.15); }
+
+/* Delete button (alarm list) */
+.ck-del-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--ck-border);
+  background: transparent;
+  color: var(--ck-hint);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.ck-del-btn:hover { border-color: var(--ck-danger); color: var(--ck-danger); }
+
+/* Toggle switch button */
+.ck-toggle {
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.25s;
+  flex-shrink: 0;
+}
+
+.ck-toggle.on  { background: var(--ck-accent); }
+.ck-toggle.off { background: var(--ck-border); }
+
+.ck-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #0e0e0f;
+  transition: left 0.25s;
+}
+
+.ck-toggle.on::after  { left: 21px; }
+.ck-toggle.off::after { left: 3px; }
+
+
+/* ============================================================
+   7. LAPS
+   ============================================================ */
+.ck-laps {
+  max-height: 200px;
+  overflow-y: auto;
+  border-top: 1px solid var(--ck-border);
+}
+
+.ck-laps::-webkit-scrollbar { width: 3px; }
+.ck-laps::-webkit-scrollbar-track { background: transparent; }
+.ck-laps::-webkit-scrollbar-thumb { background: var(--ck-border); border-radius: 2px; }
+
+.ck-lap-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--ck-border);
+  font-size: 13px;
+}
+
+.ck-lap-row .lap-num  { color: var(--ck-hint); font-family: var(--ck-font-mono); }
+.ck-lap-row .lap-time { color: var(--ck-text); font-family: var(--ck-font-mono); }
+.ck-lap-row.fastest .lap-time { color: var(--ck-accent); }
+.ck-lap-row.slowest .lap-time { color: var(--ck-danger); }
+
+
+/* ============================================================
+   8. TIMER INPUTS
+   ============================================================ */
+.ck-time-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 1.5rem 0 0;
+}
+
+.ck-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ck-input-group input {
+  width: 72px;
+  text-align: center;
+  font-size: 28px;
+  font-family: var(--ck-font-mono);
+  font-weight: 300;
+  padding: 10px 4px;
+  border: 1px solid var(--ck-border);
+  border-radius: var(--ck-radius-sm);
+  background: var(--ck-surface);
+  color: var(--ck-text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ck-input-group input:focus { border-color: var(--ck-accent); }
+.ck-input-group input::-webkit-inner-spin-button { display: none; }
+.ck-input-group input.error { border-color: var(--ck-danger); }
+
+.ck-input-group label {
+  font-size: 11px;
+  color: var(--ck-hint);
+  letter-spacing: 0.1em;
+  font-family: var(--ck-font-mono);
+}
+
+.ck-colon {
+  font-size: 28px;
+  color: var(--ck-hint);
+  font-family: var(--ck-font-mono);
+  margin-top: -14px;
+}
+
+
+/* ============================================================
+   9. RING BANNER
+   ============================================================ */
+.ck-ring-banner {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 95, 95, 0.1);
+  border: 1px solid rgba(255, 95, 95, 0.3);
+  border-radius: var(--ck-radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--ck-danger);
+  margin-bottom: 1.5rem;
+}
+
+.ck-ring-banner.show {
+  display: flex;
+  animation: ck-pulse 1s infinite;
+}
+
+
+/* ============================================================
+   10. ALARM
+   ============================================================ */
+.ck-alarm-add {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ck-alarm-add input[type="time"] {
+  flex: 0 0 auto;
+  font-size: 15px;
+  font-family: var(--ck-font-mono);
+  padding: 10px 12px;
+  border: 1px solid var(--ck-border);
+  border-radius: var(--ck-radius-sm);
+  background: var(--ck-surface);
+  color: var(--ck-text);
+  outline: none;
+}
+
+.ck-alarm-add input[type="time"]:focus { border-color: var(--ck-accent); }
+
+.ck-alarm-add input[type="text"] {
+  flex: 1;
+  font-size: 14px;
+  font-family: var(--ck-font);
+  padding: 10px 12px;
+  border: 1px solid var(--ck-border);
+  border-radius: var(--ck-radius-sm);
+  background: var(--ck-surface);
+  color: var(--ck-text);
+  outline: none;
+}
+
+.ck-alarm-add input[type="text"]:focus { border-color: var(--ck-accent); }
+.ck-alarm-add input::placeholder { color: var(--ck-hint); }
+
+.ck-alarm-list { display: flex; flex-direction: column; gap: 8px; }
+
+.ck-alarm-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--ck-radius-sm);
+  transition: border-color 0.2s;
+}
+
+.ck-alarm-item.off { opacity: 0.5; }
+
+.ck-alarm-item .alarm-time {
+  font-family: var(--ck-font-mono);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--ck-text);
+}
+
+.ck-alarm-item .alarm-label {
+  font-size: 12px;
+  color: var(--ck-muted);
+  margin-top: 2px;
+}
+
+.ck-alarm-item .alarm-days {
+  font-size: 11px;
+  color: var(--ck-accent);
+  margin-top: 3px;
+  font-family: var(--ck-font-mono);
+}
+
+.ck-alarm-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+/* ============================================================
+   11. DAYS PICKER
+   ============================================================ */
+.ck-days-picker {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.ck-day-btn {
+  flex: 1;
+  padding: 7px 0;
+  border-radius: var(--ck-radius-sm);
+  border: 1px solid var(--ck-border);
+  background: var(--ck-surface);
+  color: var(--ck-muted);
+  font-size: 12px;
+  font-family: var(--ck-font-mono);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ck-day-btn.active {
+  background: var(--ck-accent);
+  border-color: var(--ck-accent);
+  color: #0e0e0f;
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   12. UTILITIES
+   ============================================================ */
+
+/* Empty state message */
+.ck-empty {
+  text-align: center;
+  padding: 2rem;
+  font-size: 13px;
+  color: var(--ck-hint);
+  font-family: var(--ck-font-mono);
+}
+
+/* Error message text */
+.ck-error {
+  font-size: 11px;
+  color: var(--ck-danger);
+  text-align: center;
+  margin-bottom: 8px;
+  font-family: var(--ck-font-mono);
+  min-height: 16px;
+}
+
+/* Hint text */
+.ck-hint {
+  font-size: 12px;
+  color: var(--ck-hint);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Small days hint */
+.ck-days-hint {
+  font-size: 11px;
+  color: var(--ck-hint);
+  margin-bottom: 1rem;
+  font-family: var(--ck-font-mono);
+}
+
+
+/* ============================================================
+   13. ANIMATIONS
+   ============================================================ */
+@keyframes ck-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
