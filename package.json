@@ -1,0 +1,14 @@
+{
+  "name": "clockify-js",
+  "version": "1.0.0",
+  "description": "A full clock utility library — stopwatch, timer, alarm, audio & formatters.",
+  "main": "index.js",
+  "keywords": ["clock", "stopwatch", "timer", "alarm", "countdown", "javascript"],
+  "author": "Sahir Punjwani",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sahirpunjwani/clockify-js"
+  },
+  "homepage": "https://github.com/sahirpunjwani/clockify-js#readme"
+}
