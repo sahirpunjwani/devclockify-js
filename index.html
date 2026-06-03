@@ -465,6 +465,41 @@
     .api-table td:nth-child(2) { color: var(--muted); font-size: 12px; }
     .api-table td:nth-child(3) { color: var(--hint); font-size: 12px; }
 
+    /* ---- DOCUMENTATION EXTRA STYLES ---- */
+    .docs-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .docs-card h3 {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .docs-card p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .docs-list {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .docs-list li {
+      margin-bottom: 6px;
+    }
+    .docs-list strong {
+      color: var(--text);
+    }
+
     footer {
       border-top: 1px solid var(--border);
       padding: 32px 40px;
@@ -599,6 +634,7 @@
     <li><a href="#features">features</a></li>
     <li><a href="#usage">usage</a></li>
     <li><a href="#api">api</a></li>
+    <li><a href="#docs">docs</a></li>
   </ul>
   <a class="nav-gh" href="https://github.com/sahirpunjwani/devclockify-js" target="_blank">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
@@ -634,10 +670,8 @@
     </div>
   </div>
 
-  <!-- TWO COMPARTMENTS -->
   <div class="compartments">
 
-    <!-- LEFT: CSS -->
     <div class="compartment">
       <div class="compartment-header">
         <div class="comp-dot"></div>
@@ -668,7 +702,6 @@
       </div>
     </div>
 
-    <!-- RIGHT: JS -->
     <div class="compartment">
       <div class="compartment-header">
         <div class="comp-dot"></div>
@@ -901,6 +934,63 @@ manager.<span class="fn">isRinging</span>();</pre>
   </div>
 </section>
 
+<section id="docs">
+  <div class="section-label">Documentation</div>
+  <h2 class="section-title">Architecture & System Guides</h2>
+  <p class="section-sub">Understand the inner engine details of devclockify-js, lifecycle handling, state persistence, and styling mechanics.</p>
+  
+  <div class="docs-card">
+    <h3>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      1. Structural Concept
+    </h3>
+    <p>
+      <code>devclockify-js</code> balances drift-free accuracy with performance optimization. Instead of processing simple increments inside a standard <code>setInterval</code> (which natively suffers from runtime throttling and frame drifts), the system relies on physical system clock differences (delta time) calculated from instances of <code>Date.now()</code>.
+    </p>
+  </div>
+
+  <div class="docs-card">
+    <h3>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      2. Event Lifecycle Subscriptions
+    </h3>
+    <p>
+      Modules invoke dynamic rendering loops through callbacks. It is recommended to mount and clear listeners within application component context rules to optimize rendering operations:
+    </p>
+    <ul class="docs-list">
+      <li><strong>Stopwatch Loop:</strong> Automatically runs at uniform intervals (~50ms intervals) to gracefully display millisecond variables.</li>
+      <li><strong>Timer Evaluation Loop:</strong> Executes around ~200ms checkpoints to minimize main thread blockage while sustaining high visual sync accuracy.</li>
+    </ul>
+  </div>
+
+  <div class="docs-card">
+    <h3>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      3. State Storage Sync Engine
+    </h3>
+    <p>
+      The Alarm Manager operates with persistent data binding layers:
+    </p>
+    <ul class="docs-list">
+      <li><strong>Persistence:</strong> Instantiated state structures are written to local client-side memory storage blocks upon execution adjustments (Create, Delete, Toggle).</li>
+      <li><strong>Safety Intercepts:</strong> The data model safely initializes fallback empty arrays if standard <code>localStorage</code> objects fail configuration calls or strict cross-domain permission settings.</li>
+    </ul>
+  </div>
+
+  <div class="docs-card">
+    <h3>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      4. Web Audio Framework Policy
+    </h3>
+    <p>
+      Audio utilities use raw synthesizer nodes powered by the browser's native <strong>Web Audio API</strong> context, generating distinct oscillators without requiring static audio file paths. 
+    </p>
+    <p style="margin-bottom: 0; color: #a8d040;">
+      <em>Note: Modern browsers block sound patterns unless a deliberate interaction event (Click/Touch) from the viewport user explicitly triggers the process first.</em>
+    </p>
+  </div>
+</section>
+
 <footer>
   <div>built by <a href="https://github.com/sahirpunjwani" target="_blank">sahirpunjwani</a> — MIT license</div>
   <div>
@@ -920,6 +1010,7 @@ manager.<span class="fn">isRinging</span>();</pre>
   function copyText(text, btnId) {
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById(btnId);
+      if (!btn) return;
       btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
       setTimeout(() => {
         btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
@@ -929,9 +1020,6 @@ manager.<span class="fn">isRinging</span>();</pre>
 
   document.getElementById('copy-npm').addEventListener('click', () =>
     copyText('npm install devclockify-js', 'copy-npm'));
-
-  document.getElementById('copy-cdn').addEventListener('click', () =>
-    copyText('https://cdn.jsdelivr.net/gh/sahirpunjwani/devclockify-js@main/index.js', 'copy-cdn'));
 
   document.getElementById('copy-css-cdn').addEventListener('click', () =>
     copyText('https://cdn.jsdelivr.net/gh/sahirpunjwani/devclockify-js@main/clockify.css', 'copy-css-cdn'));
